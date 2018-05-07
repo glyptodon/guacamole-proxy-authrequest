@@ -1,0 +1,16 @@
+{
+
+    "guacamoleVersion" : "0.9.14",
+
+    "name"      : "Proxy Authentication Request",
+    "namespace" : "proxy-authrequest",
+
+    "authProviders" : [
+        "org.glyptodon.guacamole.authrequest.ProxyAuthRequestAuthenticationProvider"
+    ],
+
+    "translations" : [
+        "translations/en.json"
+    ]
+
+}
