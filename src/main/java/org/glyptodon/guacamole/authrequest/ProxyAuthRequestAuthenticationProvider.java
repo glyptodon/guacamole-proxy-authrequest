@@ -25,8 +25,8 @@ package org.glyptodon.guacamole.authrequest;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import org.apache.guacamole.GuacamoleException;
+import org.apache.guacamole.net.auth.AbstractAuthenticationProvider;
 import org.apache.guacamole.net.auth.AuthenticatedUser;
-import org.apache.guacamole.net.auth.AuthenticationProvider;
 import org.apache.guacamole.net.auth.Credentials;
 import org.apache.guacamole.net.auth.UserContext;
 import org.glyptodon.guacamole.authrequest.rest.AuthStatusResource;
@@ -38,7 +38,7 @@ import org.glyptodon.guacamole.authrequest.token.TokenGenerator;
  * HttpSession such that the presence of a valid Guacamole session can be
  * determined through an HTTP request to a specific REST endpoint.
  */
-public class ProxyAuthRequestAuthenticationProvider implements AuthenticationProvider {
+public class ProxyAuthRequestAuthenticationProvider extends AbstractAuthenticationProvider {
 
     /**
      * The {@link TokenGenerator} to use to generate tokens for authenticated
@@ -49,18 +49,6 @@ public class ProxyAuthRequestAuthenticationProvider implements AuthenticationPro
     @Override
     public String getIdentifier() {
         return "proxy-authrequest";
-    }
-
-    @Override
-    public AuthenticatedUser authenticateUser(Credentials credentials)
-            throws GuacamoleException {
-        return null;
-    }
-
-    @Override
-    public AuthenticatedUser updateAuthenticatedUser(AuthenticatedUser authenticatedUser,
-            Credentials credentials) throws GuacamoleException {
-        return authenticatedUser;
     }
 
     @Override
@@ -88,20 +76,8 @@ public class ProxyAuthRequestAuthenticationProvider implements AuthenticationPro
     }
 
     @Override
-    public UserContext updateUserContext(UserContext context,
-            AuthenticatedUser authenticatedUser, Credentials credentials)
-            throws GuacamoleException {
-        return context;
-    }
-
-    @Override
     public Object getResource() throws GuacamoleException {
         return new AuthStatusResource(tokens);
-    }
-
-    @Override
-    public void shutdown() {
-        // Nothing to clean up
     }
 
 }
